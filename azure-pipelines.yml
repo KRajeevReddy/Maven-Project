@@ -25,11 +25,19 @@ steps:
     SourceFolder: '$(agent.builddirectory)'
     Contents: '**'
     TargetFolder: '$(build.artifactstagingdirectory)'
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(build.artifactstagingdirectory)'
+    includeRootFolder: true
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/deploy.zip'
+    replaceExistingArchive: true
 - task: S3Upload@1
   inputs:
     awsCredentials: 'S3'
     regionName: 'ap-south-1'
     bucketName: 'rajeev470'
     sourceFolder: '$(build.artifactstagingdirectory)'
-    globExpressions: '**'
+    globExpressions: '**/deploy.zip'
+
 
