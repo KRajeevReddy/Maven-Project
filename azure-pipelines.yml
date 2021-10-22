@@ -32,12 +32,13 @@ steps:
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/deploy.zip'
     replaceExistingArchive: true
+- 
 - task: S3Upload@1
   inputs:
-    awsCredentials: 'S3'
+    awsCredentials: 'AWS'
     regionName: 'ap-south-1'
     bucketName: 'rajeev470'
     sourceFolder: '$(build.artifactstagingdirectory)'
-    globExpressions: '**/deploy.zip'
+    globExpressions: 'deploy.zip'
 
 
